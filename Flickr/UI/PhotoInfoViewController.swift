@@ -7,18 +7,16 @@
 //
 
 import UIKit
+import SafariServices
 
 class PhotoInfoViewController: UIViewController {
 
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var textView: UITextView!
-    
-    var photo: Photo?
+    @IBOutlet weak var textView: UITextView!    
+    private var photo: Photo?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,12 +34,13 @@ class PhotoInfoViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func setup(_ photo: Photo) {
         self.photo = photo
     }
+    
+    // MARK: - UI
     
     func updateUI() {
         if let url = self.photo?.urlLarge ?? self.photo?.urlMedium {
@@ -82,6 +81,26 @@ class PhotoInfoViewController: UIViewController {
         return nil
     }
 
+    // MARK: - Safari
+    
+    @IBAction func openInBrowser(_ sender: UIButton) {
+        if let urlString = self.photo?.fullInfo?.urls?.contentUrls?.first?.text, let url = URL(string: urlString) {
+            let safariController = SFSafariViewController(url: url)
+            self.present(safariController, animated: true, completion: nil)
+        }
+    }
+    
+    // MARK: - Share
+    
+    @IBAction func shareImage(_ sender: UIBarButtonItem) {
+        guard let image = self.imageView.image else {
+            return
+        }
+        let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view
+        self.present(activityViewController, animated: true, completion: nil)
+    }
+    
     /*
     // MARK: - Navigation
 

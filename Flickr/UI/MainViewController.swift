@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MainViewController.swift
 //  Flickr
 //
 //  Created by Evgeniia Mikhailova on 19.06.18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -73,7 +73,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // MARK: - Extensions
 }
 
-extension ViewController: PhotosTableViewCellDelegate {
+extension MainViewController: PhotosTableViewCellDelegate {
     func didSelectPhoto(_ photo: Photo) {
         self.performSegue(withIdentifier: "PhotoInfoSegue", sender: photo)
     }

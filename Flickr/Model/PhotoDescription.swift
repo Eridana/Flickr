@@ -11,10 +11,11 @@ import UIKit
 class PhotoDescription: Codable {
     var id: String?
     var dateUploadedInterval: String?
-    var title: PhotoContentText?
-    var description: PhotoContentText?
+    var title: PhotoTextContent?
+    var description: PhotoTextContent?
     var dates: PhotoDateInfo?
     var owner: PhotoOwner?
+    var urls: PhotoUrlsData?
     
     var dateUploaded: Date {
         get {
@@ -29,6 +30,7 @@ class PhotoDescription: Codable {
         case description
         case dates
         case owner
+        case urls
     }
 }
 
@@ -56,7 +58,14 @@ class PhotoOwner: Codable {
     }
 }
 
-class PhotoContentText: Codable {
+class PhotoUrlsData: Codable {
+    var contentUrls: [PhotoTextContent]?
+    private enum CodingKeys: String, CodingKey {
+        case contentUrls = "url"
+    }
+}
+
+class PhotoTextContent: Codable {
     var text: String?
     private enum CodingKeys: String, CodingKey {
         case text = "_content"

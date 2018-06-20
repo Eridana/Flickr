@@ -25,7 +25,7 @@
 		7EAEF9E720D8F44000337C9D /* MBProgressHUD.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7EAEF9E220D8F43F00337C9D /* MBProgressHUD.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7EAEF9E820D8F44000337C9D /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EAEF9E320D8F43F00337C9D /* Alamofire.framework */; };
 		7EAEF9E920D8F44000337C9D /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7EAEF9E320D8F43F00337C9D /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		7EAEFA2220D94A9600337C9D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EAEFA2020D94A9600337C9D /* ViewController.swift */; };
+		7EAEFA2220D94A9600337C9D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EAEFA2020D94A9600337C9D /* MainViewController.swift */; };
 		7EAEFA2420D94ADE00337C9D /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EAEFA2320D94ADE00337C9D /* Photo.swift */; };
 		7EAEFA2620D94B5F00337C9D /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EAEFA2520D94B5F00337C9D /* ApiManager.swift */; };
 		7EAEFA2820D94B7000337C9D /* RecentPhotosRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EAEFA2720D94B7000337C9D /* RecentPhotosRequest.swift */; };
@@ -77,7 +77,7 @@
 		7EAEF9E120D8F43F00337C9D /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDWebImage.framework; path = Carthage/Build/iOS/SDWebImage.framework; sourceTree = "<group>"; };
 		7EAEF9E220D8F43F00337C9D /* MBProgressHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MBProgressHUD.framework; path = Carthage/Build/iOS/MBProgressHUD.framework; sourceTree = "<group>"; };
 		7EAEF9E320D8F43F00337C9D /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
-		7EAEFA2020D94A9600337C9D /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		7EAEFA2020D94A9600337C9D /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		7EAEFA2320D94ADE00337C9D /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		7EAEFA2520D94B5F00337C9D /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		7EAEFA2720D94B7000337C9D /* RecentPhotosRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentPhotosRequest.swift; sourceTree = "<group>"; };
@@ -171,9 +171,9 @@
 		7EAEFA1F20D94A9600337C9D /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				7EAEFA2020D94A9600337C9D /* ViewController.swift */,
-				7E3CD03A20DA30B1002C3F4F /* Cells */,
+				7EAEFA2020D94A9600337C9D /* MainViewController.swift */,
 				7E3CD03F20DA32E5002C3F4F /* PhotoInfoViewController.swift */,
+				7E3CD03A20DA30B1002C3F4F /* Cells */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -295,7 +295,7 @@
 				7E3CD03920DA2AB2002C3F4F /* PhotoDescription.swift in Sources */,
 				7E3CD02F20DA2674002C3F4F /* PhotoMetadataRequest.swift in Sources */,
 				7E3CD03320DA27A6002C3F4F /* PhotosData.swift in Sources */,
-				7EAEFA2220D94A9600337C9D /* ViewController.swift in Sources */,
+				7EAEFA2220D94A9600337C9D /* MainViewController.swift in Sources */,
 				7E3CD04020DA32E5002C3F4F /* PhotoInfoViewController.swift in Sources */,
 				7EAEF9B620D8F0FA00337C9D /* AppDelegate.swift in Sources */,
 				7E3CD03120DA2793002C3F4F /* PhotosRequestResult.swift in Sources */,

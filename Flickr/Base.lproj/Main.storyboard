@@ -11,10 +11,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Main View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Flickr" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="Flickr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -137,6 +137,9 @@
                                     <constraint firstAttribute="width" constant="97" id="NKa-5Q-yZr"/>
                                 </constraints>
                                 <state key="normal" title="Open in Safari"/>
+                                <connections>
+                                    <action selector="openInBrowser:" destination="jgn-xK-3hm" eventType="touchUpInside" id="E9V-yF-URz"/>
+                                </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="dTa-Rs-4ea">
                                 <rect key="frame" x="0.0" y="405.5" width="375" height="194.5"/>
@@ -162,7 +165,11 @@
                         <viewLayoutGuide key="safeArea" id="Ura-8f-Gg5"/>
                     </view>
                     <navigationItem key="navigationItem" title="Info" id="57r-mj-z15">
-                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="PXm-d6-xod"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="PXm-d6-xod">
+                            <connections>
+                                <action selector="shareImage:" destination="jgn-xK-3hm" id="khR-O0-swS"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="imageView" destination="gKc-Xp-AHt" id="IyZ-c7-d6U"/>

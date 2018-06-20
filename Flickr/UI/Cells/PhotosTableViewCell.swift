@@ -22,13 +22,10 @@ class PhotosTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     func setupWithData(_ data: [Photo], categoryName: String?) {
@@ -37,10 +34,13 @@ class PhotosTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
         self.collectionView.reloadData()
     }
     
+    // MARK: - UICollectionViewDataSource, UICollectionViewDelegate
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let photo = data![indexPath.row]
-        if let delegate = cellDelegate {
-            delegate.didSelectPhoto(photo)
+        if let photo = self.data?[indexPath.row] {
+            if let delegate = cellDelegate {
+                delegate.didSelectPhoto(photo)
+            }
         }
     }
     
@@ -48,14 +48,14 @@ class PhotosTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: PhotoCollectionViewCell.self), for: indexPath) as? PhotoCollectionViewCell else {
             return PhotoCollectionViewCell()
         }
-        if let photo = data?[indexPath.row] {
+        if let photo = self.data?[indexPath.row] {
             cell.setup(with: photo)
         }
         return  cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return data?.count ?? 0
+        return self.data?.count ?? 0
     }
 
 }
