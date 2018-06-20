@@ -14,7 +14,7 @@ class RecentPhotosRequest: NSObject {
     
     static func getPhotos(completion: @escaping ((PhotosRequestResult?) -> Void)) {
         
-        let params:[String: Any]? = ["per_page" : "100"]
+        let params:[String: Any]? = ["per_page" : "10", "extras" : "url_m,url_l,date_upload"]
         
         ApiManager.sharedInstance.get(from: self.url, params: params) { (data) in
             if let data = data as? Data {

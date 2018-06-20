@@ -57,8 +57,8 @@ class PhotoOwner: Codable {
 }
 
 class PhotoContentText: Codable {
-    var info: String?
+    var text: String?
     private enum CodingKeys: String, CodingKey {
-        case info = "_content"
+        case text = "_content"
     }
 }

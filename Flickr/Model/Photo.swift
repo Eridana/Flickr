@@ -12,12 +12,36 @@ class Photo: Codable {
     var id: String?
     var ownerId: String?
     var title: String?
+    var mediumUrlString: String?
+    var largeUrlString: String?
+    var dateUploadedString: String?
     var fullInfo: PhotoDescription?
+    
+    var urlMedium: URL? {
+        get {
+            return URL(string: self.mediumUrlString ?? "")
+        }
+    }
+    
+    var urlLarge: URL? {
+        get {
+            return URL(string: self.largeUrlString ?? "")
+        }
+    }
+    
+    var dateUploaded: Date {
+        get {
+            return Date(timeIntervalSince1970: NSDecimalNumber(string: self.dateUploadedString ?? "0").doubleValue)
+        }
+    }
     
     private enum CodingKeys: String, CodingKey {
         case id
         case ownerId = "owner"
         case title = "title"
+        case mediumUrlString = "url_m"
+        case largeUrlString = "url_l"
+        case dateUploadedString = "dateupload"
         case fullInfo = "photo"
     }
 }

@@ -36,7 +36,7 @@ class ApiManager: NSObject {
         }        
         
         Alamofire.request(url, method: HTTPMethod.get, parameters: self.compoundParameters(from: params), encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
-            print(url)
+            print(response.request ?? "No request in response")
             print(response.result.debugDescription)
             completion(response.data)
         }
