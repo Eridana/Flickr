@@ -16,6 +16,8 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     
     func setup(with photo: Photo) {
         if let url = photo.urlMedium ?? photo.urlLarge {
+            self.imageView.sd_setShowActivityIndicatorView(true)
+            self.imageView.sd_setIndicatorStyle(.whiteLarge)
             self.imageView.sd_setImage(with: url, placeholderImage: UIImage(named: "placeholder"), options: .progressiveDownload) { (image, error, cacheType, url) in
                 self.imageView.image = image
             }
