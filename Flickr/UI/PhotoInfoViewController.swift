@@ -13,18 +13,20 @@ class PhotoInfoViewController: UIViewController, UIScrollViewDelegate {
 
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var textView: UITextView!    
+    @IBOutlet weak var textView: UITextView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     private var photo: Photo?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.scrollView.minimumZoomScale = 1.0
         self.scrollView.maximumZoomScale = 5.0
+        self.activityIndicator.startAnimating()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         if let photo = self.photo {
             PhotoMetadataRequest.metadata(for: photo) { (updatedPhoto) in
                 self.photo = updatedPhoto
@@ -47,10 +49,9 @@ class PhotoInfoViewController: UIViewController, UIScrollViewDelegate {
     
     func updateUI() {
         if let url = self.photo?.urlLarge ?? self.photo?.urlMedium {
-            self.imageView.sd_setShowActivityIndicatorView(true)
-            self.imageView.sd_setIndicatorStyle(.whiteLarge)
-            self.imageView.sd_setImage(with: url, placeholderImage: UIImage(named: "placeholder"), options: .progressiveDownload) { (image, error, cacheType, url) in
+            self.imageView.sd_setImage(with: url, placeholderImage: nil, options: .retryFailed) { (image, error, cacheType, url) in
                 self.imageView.image = image
+                self.activityIndicator.stopAnimating()
             }
         }
         
