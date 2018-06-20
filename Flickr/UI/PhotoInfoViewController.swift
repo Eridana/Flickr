@@ -9,14 +9,17 @@
 import UIKit
 import SafariServices
 
-class PhotoInfoViewController: UIViewController {
+class PhotoInfoViewController: UIViewController, UIScrollViewDelegate {
 
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var textView: UITextView!    
     private var photo: Photo?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.scrollView.minimumZoomScale = 1.0
+        self.scrollView.maximumZoomScale = 5.0
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -99,6 +102,12 @@ class PhotoInfoViewController: UIViewController {
         let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
         activityViewController.popoverPresentationController?.sourceView = self.view
         self.present(activityViewController, animated: true, completion: nil)
+    }
+    
+    // MARK: - UIScrollViewDelegate
+    
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return self.imageView
     }
     
     /*

@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -128,13 +127,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gKc-Xp-AHt">
-                                <rect key="frame" x="0.0" y="64" width="375" height="333.5"/>
-                            </imageView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xtw-hj-2gy">
+                                <rect key="frame" x="0.0" y="64" width="375" height="406"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="xD3-zA-Rv7">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="406"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="xD3-zA-Rv7" firstAttribute="height" secondItem="xtw-hj-2gy" secondAttribute="height" id="HET-HP-Iks"/>
+                                    <constraint firstAttribute="bottom" secondItem="xD3-zA-Rv7" secondAttribute="bottom" id="adn-e0-9AF"/>
+                                    <constraint firstItem="xD3-zA-Rv7" firstAttribute="width" secondItem="xtw-hj-2gy" secondAttribute="width" id="c5z-Br-8Ld"/>
+                                    <constraint firstAttribute="trailing" secondItem="xD3-zA-Rv7" secondAttribute="trailing" id="dqY-zh-9wT"/>
+                                    <constraint firstItem="xD3-zA-Rv7" firstAttribute="leading" secondItem="xtw-hj-2gy" secondAttribute="leading" id="oQr-qH-jud"/>
+                                    <constraint firstItem="xD3-zA-Rv7" firstAttribute="top" secondItem="xtw-hj-2gy" secondAttribute="top" id="tHH-Zx-fs0"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="jgn-xK-3hm" id="DTC-0u-Ki8"/>
+                                </connections>
+                            </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mkx-ll-9iA">
                                 <rect key="frame" x="139" y="617" width="97" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="97" id="NKa-5Q-yZr"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="97" id="NKa-5Q-yZr"/>
                                 </constraints>
                                 <state key="normal" title="Open in Safari"/>
                                 <connections>
@@ -142,8 +157,11 @@
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="dTa-Rs-4ea">
-                                <rect key="frame" x="0.0" y="405.5" width="375" height="194.5"/>
+                                <rect key="frame" x="0.0" y="480" width="375" height="120"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="64R-mk-5tL"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" link="YES"/>
@@ -151,15 +169,15 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="gKc-Xp-AHt" firstAttribute="height" secondItem="hcp-pB-xIf" secondAttribute="height" multiplier="0.5" id="21r-f4-Sne"/>
-                            <constraint firstItem="gKc-Xp-AHt" firstAttribute="trailing" secondItem="Ura-8f-Gg5" secondAttribute="trailing" id="6au-6W-UYg"/>
-                            <constraint firstItem="gKc-Xp-AHt" firstAttribute="top" secondItem="Ura-8f-Gg5" secondAttribute="top" id="7DI-Xj-ZnC"/>
                             <constraint firstItem="Mkx-ll-9iA" firstAttribute="top" secondItem="dTa-Rs-4ea" secondAttribute="bottom" constant="17" id="8Hf-Hj-KuX"/>
+                            <constraint firstItem="xtw-hj-2gy" firstAttribute="leading" secondItem="Ura-8f-Gg5" secondAttribute="leading" id="BG4-5B-WHd"/>
+                            <constraint firstItem="xtw-hj-2gy" firstAttribute="top" secondItem="Ura-8f-Gg5" secondAttribute="top" id="ND1-MD-YSW"/>
                             <constraint firstItem="Mkx-ll-9iA" firstAttribute="centerX" secondItem="Ura-8f-Gg5" secondAttribute="centerX" id="PHx-5g-a7y"/>
+                            <constraint firstItem="xtw-hj-2gy" firstAttribute="trailing" secondItem="Ura-8f-Gg5" secondAttribute="trailing" id="SfQ-gW-GYV"/>
                             <constraint firstItem="Ura-8f-Gg5" firstAttribute="bottom" secondItem="Mkx-ll-9iA" secondAttribute="bottom" constant="20" id="TqF-8P-RaE"/>
                             <constraint firstItem="dTa-Rs-4ea" firstAttribute="trailing" secondItem="Ura-8f-Gg5" secondAttribute="trailing" id="XJJ-42-L7X"/>
-                            <constraint firstItem="gKc-Xp-AHt" firstAttribute="leading" secondItem="Ura-8f-Gg5" secondAttribute="leading" id="dLG-c9-Dc6"/>
-                            <constraint firstItem="dTa-Rs-4ea" firstAttribute="top" secondItem="gKc-Xp-AHt" secondAttribute="bottom" constant="8" id="ofE-3Y-kaf"/>
+                            <constraint firstItem="xtw-hj-2gy" firstAttribute="width" secondItem="hcp-pB-xIf" secondAttribute="width" id="YXo-p8-HUQ"/>
+                            <constraint firstItem="dTa-Rs-4ea" firstAttribute="top" secondItem="xtw-hj-2gy" secondAttribute="bottom" constant="10" id="eGi-J3-yct"/>
                             <constraint firstItem="dTa-Rs-4ea" firstAttribute="leading" secondItem="Ura-8f-Gg5" secondAttribute="leading" id="qA7-Lc-YBu"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ura-8f-Gg5"/>
@@ -172,7 +190,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="imageView" destination="gKc-Xp-AHt" id="IyZ-c7-d6U"/>
+                        <outlet property="imageView" destination="xD3-zA-Rv7" id="Tgg-qH-YNq"/>
+                        <outlet property="scrollView" destination="xtw-hj-2gy" id="oqk-yO-xUX"/>
                         <outlet property="textView" destination="dTa-Rs-4ea" id="uH4-4q-Sbi"/>
                     </connections>
                 </viewController>
