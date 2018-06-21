@@ -30,6 +30,7 @@ class PhotoMetadataRequest: NSObject {
                     decoded.ownerId = photo.ownerId
                     decoded.title = photo.title
                     decoded.dateUploadedString = photo.dateUploadedString
+                    decoded.smallUrlString = photo.smallUrlString
                     decoded.mediumUrlString = photo.mediumUrlString
                     decoded.largeUrlString = photo.largeUrlString
                     completion(decoded)

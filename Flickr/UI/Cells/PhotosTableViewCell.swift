@@ -48,10 +48,13 @@ class PhotosTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: PhotoCollectionViewCell.self), for: indexPath) as? PhotoCollectionViewCell else {
             return PhotoCollectionViewCell()
         }
-        if let photo = self.data?[indexPath.row] {
-            cell.setup(with: photo)
-        }
         return  cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if let photo = self.data?[indexPath.row] {
+            (cell as? PhotoCollectionViewCell)?.setup(with: photo)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

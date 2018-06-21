@@ -12,10 +12,17 @@ class Photo: Codable {
     var id: String?
     var ownerId: String?
     var title: String?
+    var smallUrlString: String?
     var mediumUrlString: String?
     var largeUrlString: String?
     var dateUploadedString: String?
     var fullInfo: PhotoDescription?
+    
+    var urlSmall: URL? {
+        get {
+            return URL(string: self.smallUrlString ?? "")
+        }
+    }
     
     var urlMedium: URL? {
         get {
@@ -39,6 +46,7 @@ class Photo: Codable {
         case id
         case ownerId = "owner"
         case title = "title"
+        case smallUrlString = "url_s"
         case mediumUrlString = "url_m"
         case largeUrlString = "url_l"
         case dateUploadedString = "dateupload"

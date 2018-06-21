@@ -15,7 +15,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     
     func setup(with photo: Photo) {
-        if let url = photo.urlMedium ?? photo.urlLarge {
+        if let url = photo.urlSmall ?? photo.urlMedium {
             self.imageView.sd_setShowActivityIndicatorView(true)
             self.imageView.sd_setIndicatorStyle(.whiteLarge)
             self.imageView.sd_setImage(with: url, placeholderImage: UIImage(named: "placeholder"), options: .retryFailed) { (image, error, cacheType, url) in

@@ -28,6 +28,7 @@ class PhotoInfoViewController: UIViewController, UIScrollViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let photo = self.photo {
+            self.title = photo.title
             PhotoMetadataRequest.metadata(for: photo) { (updatedPhoto) in
                 self.photo = updatedPhoto
                 DispatchQueue.main.async {

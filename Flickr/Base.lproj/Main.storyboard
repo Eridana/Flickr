@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -117,7 +118,7 @@
             </objects>
             <point key="canvasLocation" x="1004" y="130.88455772113943"/>
         </scene>
-        <!--Info-->
+        <!--Photo Info View Controller-->
         <scene sceneID="Z2A-tx-odP">
             <objects>
                 <viewController id="jgn-xK-3hm" customClass="PhotoInfoViewController" customModule="Flickr" customModuleProvider="target" sceneMemberID="viewController">
@@ -126,16 +127,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xtw-hj-2gy">
-                                <rect key="frame" x="0.0" y="64" width="375" height="376"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="379.5"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="xD3-zA-Rv7">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="376"/>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="379.5"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </imageView>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="WlF-AP-Edb">
-                                        <rect key="frame" x="169.5" y="170" width="37" height="37"/>
+                                        <rect key="frame" x="169.5" y="172" width="37" height="37"/>
                                     </activityIndicatorView>
                                 </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="xD3-zA-Rv7" firstAttribute="height" secondItem="xtw-hj-2gy" secondAttribute="height" id="HET-HP-Iks"/>
                                     <constraint firstItem="WlF-AP-Edb" firstAttribute="centerX" secondItem="xD3-zA-Rv7" secondAttribute="centerX" id="QAC-od-m72"/>
@@ -161,11 +163,8 @@
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dTa-Rs-4ea">
-                                <rect key="frame" x="0.0" y="450" width="375" height="150"/>
+                                <rect key="frame" x="0.0" y="453.5" width="375" height="146.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="64R-mk-5tL"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" link="YES"/>
@@ -181,12 +180,13 @@
                             <constraint firstItem="Ura-8f-Gg5" firstAttribute="bottom" secondItem="Mkx-ll-9iA" secondAttribute="bottom" constant="20" id="TqF-8P-RaE"/>
                             <constraint firstItem="dTa-Rs-4ea" firstAttribute="trailing" secondItem="Ura-8f-Gg5" secondAttribute="trailing" id="XJJ-42-L7X"/>
                             <constraint firstItem="xtw-hj-2gy" firstAttribute="width" secondItem="hcp-pB-xIf" secondAttribute="width" id="YXo-p8-HUQ"/>
+                            <constraint firstItem="dTa-Rs-4ea" firstAttribute="height" secondItem="hcp-pB-xIf" secondAttribute="height" multiplier="0.22" id="by8-qH-9Ww"/>
                             <constraint firstItem="dTa-Rs-4ea" firstAttribute="top" secondItem="xtw-hj-2gy" secondAttribute="bottom" constant="10" id="eGi-J3-yct"/>
                             <constraint firstItem="dTa-Rs-4ea" firstAttribute="leading" secondItem="Ura-8f-Gg5" secondAttribute="leading" id="qA7-Lc-YBu"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ura-8f-Gg5"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Info" id="57r-mj-z15">
+                    <navigationItem key="navigationItem" id="57r-mj-z15">
                         <barButtonItem key="rightBarButtonItem" systemItem="action" id="PXm-d6-xod">
                             <connections>
                                 <action selector="shareImage:" destination="jgn-xK-3hm" id="khR-O0-swS"/>
