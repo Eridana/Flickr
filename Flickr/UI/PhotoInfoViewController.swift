@@ -50,7 +50,7 @@ class PhotoInfoViewController: UIViewController, UIScrollViewDelegate {
     
     func updateUI() {
         if let url = self.photo?.urlLarge ?? self.photo?.urlMedium {
-            self.imageView.sd_setImage(with: url, placeholderImage: nil, options: .retryFailed) { (image, error, cacheType, url) in
+            self.imageView.sd_setImage(with: url, placeholderImage: nil, options: .progressiveDownload) { (image, error, cacheType, url) in
                 self.imageView.image = image
                 self.activityIndicator.stopAnimating()
             }

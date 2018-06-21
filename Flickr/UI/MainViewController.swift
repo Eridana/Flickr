@@ -14,6 +14,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     private var categories = [Int: [Photo]]()
     private var currentPage: Int = 1
     private var dataIsLoading = false
+    private let refreshControl = UIRefreshControl()
     
     private var sortedKeys: [Int] {
         get {
@@ -23,6 +24,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Recent photos"
+        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        self.refreshControl.addTarget(self, action: #selector(MainViewController.refreshData), for: .valueChanged)
+        self.tableView.addSubview(refreshControl)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,22 +41,32 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func fetchData() {
+        
         if self.dataIsLoading {
             return
         }
+        
         self.dataIsLoading = true
-        RecentPhotosRequest.getPhotos(for: self.currentPage, perPage: 10) { (result) in
-            if let photos = result?.photosInfo?.photos, let page = result?.photosInfo?.page {
-                self.currentPage = self.currentPage + 1
-                self.categories[page] = photos
-                DispatchQueue.main.async {
-                    self.dataIsLoading = false
-                    self.tableView.reloadData()
+        
+        DispatchQueue.global(qos: .background).async {
+            RecentPhotosRequest.getPhotos(for: self.currentPage, perPage: 10) { (result) in
+                if let photos = result?.photosInfo?.photos, let page = result?.photosInfo?.page {
+                    self.currentPage = self.currentPage + 1
+                    self.categories[page] = photos
+                    DispatchQueue.main.async {
+                        self.refreshControl.endRefreshing()
+                        self.tableView.reloadData()
+                        self.dataIsLoading = false
+                    }
                 }
-            } else {
-                self.dataIsLoading = false
             }
         }
+    }
+    
+    @objc func refreshData() {
+        self.currentPage = 0
+        self.categories = [Int: [Photo]]()
+        self.fetchData()
     }
     
     // MARK: - UITableViewDataSource

@@ -32,6 +32,7 @@ class PhotosTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
         self.data = data
         self.categoryName = categoryName
         self.collectionView.reloadData()
+        self.collectionView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false)
     }
     
     // MARK: - UICollectionViewDataSource, UICollectionViewDelegate
