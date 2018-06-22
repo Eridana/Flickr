@@ -21,15 +21,38 @@ class FlickrTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testPhotosRequest() {
+        RecentPhotosRequest.getPhotos { (result) in
+            assert(result != nil)
+            assert(result?.photosInfo != nil)
+            assert((result?.photosInfo?.photos?.count ?? 0) > 0)
+        }
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    func testPhotosRequestWithPages() {
+        let page = 2
+        RecentPhotosRequest.getPhotos(for: page, perPage: 10) { (result) in
+            assert(result != nil)
+            assert(result?.photosInfo != nil)
+            assert(result?.photosInfo?.page == page)
+            assert((result?.photosInfo?.photos?.count ?? 0) == 10)
+        }
+    }
+    
+    func testPhotoMetadataRequest() {
+        let page = 5
+        RecentPhotosRequest.getPhotos(for: page, perPage: 10) { (result) in
+            assert(result != nil)
+            assert(result?.photosInfo != nil)
+            let photo = result?.photosInfo?.photos?.first
+            assert(photo != nil)
+            
+            PhotoMetadataRequest.metadata(for: photo!) { (updatedPhoto) in
+                assert(updatedPhoto != nil)
+                assert(updatedPhoto?.dateUploadedString != nil && !(updatedPhoto?.dateUploadedString?.isEmpty ?? true))
+                assert(updatedPhoto?.largeUrlString != nil && !(updatedPhoto?.largeUrlString?.isEmpty ?? true))
+                assert(updatedPhoto?.fullInfo != nil)                
+            }
         }
     }
     
