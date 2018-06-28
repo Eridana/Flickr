@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 
-class ApiManager: NSObject {
+class ApiManager {
     
     public static let sharedInstance = ApiManager()
     
@@ -22,10 +22,6 @@ class ApiManager: NSObject {
                     "format" : "json",
                     "nojsoncallback" : "1"]
         }
-    }
-
-    private override init() {
-        super.init()
     }
     
     public func get(from urlString: String, params: [String: Any]?, completion: @escaping ((Any?) -> Void)) {

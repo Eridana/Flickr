@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PhotoMetadataRequest: NSObject {
+class PhotoMetadataRequest {
     
     private static let url = "flickr.photos.getInfo"
     

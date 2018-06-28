@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RecentPhotosRequest: NSObject {
+class RecentPhotosRequest {
     
     private static let url = "flickr.photos.getRecent"
     
