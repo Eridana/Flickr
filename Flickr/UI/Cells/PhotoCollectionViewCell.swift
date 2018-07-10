@@ -14,14 +14,17 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     
-    func setup(with photo: Photo) {
-        if let url = photo.urlSmall ?? photo.urlMedium {
+    private var viewModel: PhotoViewModel?
+    
+    func setup(with viewModel: PhotoViewModel) {
+        self.viewModel = viewModel
+        if let url = self.viewModel?.urlS ?? self.viewModel?.urlM {
             self.imageView.sd_setShowActivityIndicatorView(true)
             self.imageView.sd_setIndicatorStyle(.whiteLarge)
             self.imageView.sd_setImage(with: url, placeholderImage: UIImage(named: "placeholder"), options: .progressiveDownload) { (image, error, cacheType, url) in
                 self.imageView.image = image
             }
         }
-        self.titleLabel.text = photo.title
+        self.titleLabel.text = self.viewModel?.title
     }
 }

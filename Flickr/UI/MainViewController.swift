@@ -11,14 +11,13 @@ import UIKit
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
-    private var categories = [Int: [Photo]]()
     private var currentPage: Int = 1
     private var dataIsLoading = false
     private let refreshControl = UIRefreshControl()
-    
-    private var sortedKeys: [Int] {
-        get {
-            return self.categories.keys.sorted()
+
+    private var viewModel: PhotosPagesListViewModel = PhotosPagesListViewModel() {
+        didSet {
+            self.tableView.reloadData()
         }
     }
     
@@ -50,14 +49,16 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         DispatchQueue.global(qos: .background).async {
             RecentPhotosRequest.getPhotos(for: self.currentPage, perPage: 10) { (result) in
-                if let photos = result?.photosInfo?.photos, let page = result?.photosInfo?.page {
-                    self.currentPage = self.currentPage + 1
-                    self.categories[page] = photos
+                if let result = result {
                     DispatchQueue.main.async {
+                        self.viewModel.update(result: result, page: self.currentPage)
+                        self.currentPage = self.currentPage + 1
                         self.refreshControl.endRefreshing()
-                        self.tableView.reloadData()
                         self.dataIsLoading = false
+                        self.tableView.reloadData()
                     }
+                } else {
+                    // error
                 }
             }
         }
@@ -65,14 +66,14 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @objc func refreshData() {
         self.currentPage = 0
-        self.categories = [Int: [Photo]]()
+        self.viewModel = PhotosPagesListViewModel()
         self.fetchData()
     }
     
     // MARK: - UITableViewDataSource
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.categories.keys.count
+        return self.viewModel.itemsCount
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -92,20 +93,16 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let keys = self.sortedKeys
-        if section < keys.count {
-            return "Page \(keys[section])"
-        }
-        return ""
+        return viewModel.title(for: section)
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let key = self.sortedKeys[indexPath.section]
-        let array = Array(self.categories[key] ?? [])
-        (cell as? PhotosTableViewCell)?.setupWithData(array, categoryName: "\(key)")
-        
-        if indexPath.section == self.categories.keys.count - 1 {
-            self.fetchData()
+        if let photosData = self.viewModel.value(for: indexPath.row, section: indexPath.section) {
+            (cell as? PhotosTableViewCell)?.setupWith(photosData)
+             let count = self.viewModel.sections.count
+            if photosData.page == count - 1 || count == 1 {
+                self.fetchData()
+            }
         }
     }
     
@@ -113,7 +110,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "PhotoInfoSegue" {
-            if let photo = sender as? Photo {
+            if let photo = sender as? PhotoViewModel {
                 let destination = segue.destination as? PhotoInfoViewController
                 destination?.setup(photo)
             }
@@ -124,7 +121,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 }
 
 extension MainViewController: PhotosTableViewCellDelegate {
-    func didSelectPhoto(_ photo: Photo) {
+    func didSelectPhoto(_ photo: PhotoViewModel) {
         self.performSegue(withIdentifier: "PhotoInfoSegue", sender: photo)
     }
 }

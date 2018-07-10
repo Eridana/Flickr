@@ -16,7 +16,7 @@ class PhotoInfoViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    private var photo: Photo?
+    private var photo: PhotoViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,10 +29,12 @@ class PhotoInfoViewController: UIViewController, UIScrollViewDelegate {
         super.viewWillAppear(animated)
         if let photo = self.photo {
             self.title = photo.title
-            PhotoMetadataRequest.metadata(for: photo) { (updatedPhoto) in
-                self.photo = updatedPhoto
-                DispatchQueue.main.async {
-                    self.updateUI()
+            PhotoMetadataRequest.metadata(for: photo.id) { (updatedPhoto) in
+                if let result = updatedPhoto {
+                    self.photo?.update(from: result)
+                    DispatchQueue.main.async {
+                        self.updateUI()
+                    }
                 }
             }
         }
@@ -42,56 +44,27 @@ class PhotoInfoViewController: UIViewController, UIScrollViewDelegate {
         super.didReceiveMemoryWarning()
     }
     
-    func setup(_ photo: Photo) {
+    func setup(_ photo: PhotoViewModel) {
         self.photo = photo
     }
     
     // MARK: - UI
     
     func updateUI() {
-        if let url = self.photo?.urlLarge ?? self.photo?.urlMedium {
+        if let url = self.photo?.urlL ?? self.photo?.urlM {
             self.imageView.sd_setImage(with: url, placeholderImage: nil, options: .progressiveDownload) { (image, error, cacheType, url) in
                 self.imageView.image = image
                 self.activityIndicator.stopAnimating()
             }
         }
-        
-        var fullText = ""
-        
-        if let ownerName = self.photo?.fullInfo?.owner?.username {
-            fullText.append(ownerName + "<p/>")
-        }
-        
-        if let date = self.photo?.dateUploaded {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "dd.MM.yyyy, HH:mm:ss"
-            fullText.append(String(format: "on %@ <p/>", formatter.string(from: date)))
-        }
-        
-        if let title = self.photo?.fullInfo?.title?.text {
-            fullText.append(title + "<p/>")
-        }
-        if let descr = self.photo?.fullInfo?.description?.text {
-            fullText.append(descr)
-        }
-        if let attributedString = self.attrStringFromHtmlString(fullText) {
-            self.textView.attributedText = attributedString
-        }
-        
+        self.textView.attributedText = self.photo?.fullPhotoText
     }
     
-    func attrStringFromHtmlString(_ text: String?) -> NSAttributedString? {
-        if let nsstring = text as NSString?, let data = nsstring.data(using: String.Encoding.unicode.rawValue) {
-            let options = [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html]
-            return try? NSAttributedString(data: data, options: options, documentAttributes: nil)
-        }
-        return nil
-    }
 
     // MARK: - Safari
     
     @IBAction func openInBrowser(_ sender: UIButton) {
-        if let urlString = self.photo?.fullInfo?.urls?.contentUrls?.first?.text, let url = URL(string: urlString) {
+        if let url = self.photo?.postUrl {
             let safariController = SFSafariViewController(url: url)
             self.present(safariController, animated: true, completion: nil)
         }
