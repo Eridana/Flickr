@@ -1,3 +1,4 @@
 github "jdg/MBProgressHUD" ~> 1.1.0
 github "Alamofire/Alamofire"
 github "rs/SDWebImage"
+github "ReactiveX/RxSwift" ~> 4.0
