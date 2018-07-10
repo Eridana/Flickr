@@ -126,34 +126,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xtw-hj-2gy">
-                                <rect key="frame" x="0.0" y="64" width="375" height="379.5"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xtw-hj-2gy">
+                                <rect key="frame" x="0.0" y="64" width="375" height="350"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="xD3-zA-Rv7">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="379.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="350"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </imageView>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="WlF-AP-Edb">
-                                        <rect key="frame" x="169.5" y="172" width="37" height="37"/>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="WlF-AP-Edb">
+                                        <rect key="frame" x="169" y="165" width="37" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="xD3-zA-Rv7" firstAttribute="height" secondItem="xtw-hj-2gy" secondAttribute="height" id="HET-HP-Iks"/>
-                                    <constraint firstItem="WlF-AP-Edb" firstAttribute="centerX" secondItem="xD3-zA-Rv7" secondAttribute="centerX" id="QAC-od-m72"/>
-                                    <constraint firstAttribute="bottom" secondItem="xD3-zA-Rv7" secondAttribute="bottom" id="adn-e0-9AF"/>
-                                    <constraint firstItem="xD3-zA-Rv7" firstAttribute="width" secondItem="xtw-hj-2gy" secondAttribute="width" id="c5z-Br-8Ld"/>
-                                    <constraint firstAttribute="trailing" secondItem="xD3-zA-Rv7" secondAttribute="trailing" id="dqY-zh-9wT"/>
-                                    <constraint firstItem="xD3-zA-Rv7" firstAttribute="leading" secondItem="xtw-hj-2gy" secondAttribute="leading" id="oQr-qH-jud"/>
-                                    <constraint firstItem="xD3-zA-Rv7" firstAttribute="top" secondItem="xtw-hj-2gy" secondAttribute="top" id="tHH-Zx-fs0"/>
-                                    <constraint firstItem="WlF-AP-Edb" firstAttribute="centerY" secondItem="xD3-zA-Rv7" secondAttribute="centerY" id="xaz-oK-UB4"/>
+                                    <constraint firstItem="xD3-zA-Rv7" firstAttribute="height" secondItem="xtw-hj-2gy" secondAttribute="height" id="FUj-r1-1Hm"/>
+                                    <constraint firstAttribute="trailing" secondItem="xD3-zA-Rv7" secondAttribute="trailing" id="bxM-fD-gmn"/>
+                                    <constraint firstItem="xD3-zA-Rv7" firstAttribute="top" secondItem="xtw-hj-2gy" secondAttribute="top" id="csj-4h-PC8"/>
+                                    <constraint firstItem="xD3-zA-Rv7" firstAttribute="leading" secondItem="xtw-hj-2gy" secondAttribute="leading" id="qie-vA-eSX"/>
+                                    <constraint firstAttribute="height" constant="350" id="y1S-Y1-gpj"/>
+                                    <constraint firstAttribute="bottom" secondItem="xD3-zA-Rv7" secondAttribute="bottom" id="zu5-8a-UHj"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="jgn-xK-3hm" id="DTC-0u-Ki8"/>
                                 </connections>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mkx-ll-9iA">
-                                <rect key="frame" x="139" y="617" width="97" height="30"/>
+                                <rect key="frame" x="139" y="587.5" width="97" height="59.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="97" id="NKa-5Q-yZr"/>
                                 </constraints>
@@ -163,7 +162,7 @@
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dTa-Rs-4ea">
-                                <rect key="frame" x="0.0" y="453.5" width="375" height="146.5"/>
+                                <rect key="frame" x="0.0" y="424" width="375" height="146.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -179,7 +178,7 @@
                             <constraint firstItem="xtw-hj-2gy" firstAttribute="trailing" secondItem="Ura-8f-Gg5" secondAttribute="trailing" id="SfQ-gW-GYV"/>
                             <constraint firstItem="Ura-8f-Gg5" firstAttribute="bottom" secondItem="Mkx-ll-9iA" secondAttribute="bottom" constant="20" id="TqF-8P-RaE"/>
                             <constraint firstItem="dTa-Rs-4ea" firstAttribute="trailing" secondItem="Ura-8f-Gg5" secondAttribute="trailing" id="XJJ-42-L7X"/>
-                            <constraint firstItem="xtw-hj-2gy" firstAttribute="width" secondItem="hcp-pB-xIf" secondAttribute="width" id="YXo-p8-HUQ"/>
+                            <constraint firstItem="xD3-zA-Rv7" firstAttribute="width" secondItem="hcp-pB-xIf" secondAttribute="width" id="Xg0-qn-JcL"/>
                             <constraint firstItem="dTa-Rs-4ea" firstAttribute="height" secondItem="hcp-pB-xIf" secondAttribute="height" multiplier="0.22" id="by8-qH-9Ww"/>
                             <constraint firstItem="dTa-Rs-4ea" firstAttribute="top" secondItem="xtw-hj-2gy" secondAttribute="bottom" constant="10" id="eGi-J3-yct"/>
                             <constraint firstItem="dTa-Rs-4ea" firstAttribute="leading" secondItem="Ura-8f-Gg5" secondAttribute="leading" id="qA7-Lc-YBu"/>

@@ -8,6 +8,7 @@
 
 import UIKit
 import SafariServices
+import RxSwift
 
 class PhotoInfoViewController: UIViewController, UIScrollViewDelegate {
 
@@ -15,25 +16,26 @@ class PhotoInfoViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    
-    private var photo: Photo?
+
+    private lazy var variablePhoto: Variable<PhotoViewModel> = Variable<PhotoViewModel>(PhotoViewModel())
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.scrollView.minimumZoomScale = 1.0
         self.scrollView.maximumZoomScale = 5.0
+        
         self.activityIndicator.startAnimating()
+        
+        self.setupObservers()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if let photo = self.photo {
-            self.title = photo.title
-            PhotoMetadataRequest.metadata(for: photo) { (updatedPhoto) in
-                self.photo = updatedPhoto
-                DispatchQueue.main.async {
-                    self.updateUI()
-                }
+
+        PhotoMetadataRequest.metadata(for: variablePhoto.value.id) { (updatedPhoto) in
+            if let result = updatedPhoto {
+                self.variablePhoto.value.update(from: result)
             }
         }
     }
@@ -42,56 +44,31 @@ class PhotoInfoViewController: UIViewController, UIScrollViewDelegate {
         super.didReceiveMemoryWarning()
     }
     
-    func setup(_ photo: Photo) {
-        self.photo = photo
+    func setup(_ photo: PhotoViewModel) {
+        self.variablePhoto = Variable<PhotoViewModel>(photo)
     }
     
-    // MARK: - UI
-    
-    func updateUI() {
-        if let url = self.photo?.urlLarge ?? self.photo?.urlMedium {
+    func setupObservers() {
+        let _ = self.variablePhoto.value.urlL?.asObservable().subscribe(onNext: { (url) in
             self.imageView.sd_setImage(with: url, placeholderImage: nil, options: .progressiveDownload) { (image, error, cacheType, url) in
                 self.imageView.image = image
                 self.activityIndicator.stopAnimating()
             }
-        }
+        })
         
-        var fullText = ""
+        let _ = self.variablePhoto.value.title?.asObservable().subscribe(onNext: { (value) in
+            self.title = value
+        })
         
-        if let ownerName = self.photo?.fullInfo?.owner?.username {
-            fullText.append(ownerName + "<p/>")
-        }
-        
-        if let date = self.photo?.dateUploaded {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "dd.MM.yyyy, HH:mm:ss"
-            fullText.append(String(format: "on %@ <p/>", formatter.string(from: date)))
-        }
-        
-        if let title = self.photo?.fullInfo?.title?.text {
-            fullText.append(title + "<p/>")
-        }
-        if let descr = self.photo?.fullInfo?.description?.text {
-            fullText.append(descr)
-        }
-        if let attributedString = self.attrStringFromHtmlString(fullText) {
-            self.textView.attributedText = attributedString
-        }
-        
-    }
-    
-    func attrStringFromHtmlString(_ text: String?) -> NSAttributedString? {
-        if let nsstring = text as NSString?, let data = nsstring.data(using: String.Encoding.unicode.rawValue) {
-            let options = [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html]
-            return try? NSAttributedString(data: data, options: options, documentAttributes: nil)
-        }
-        return nil
+        let _ = self.variablePhoto.value.photoDescription?.asObservable().subscribe(onNext: { (value) in
+            self.textView.attributedText = self.variablePhoto.value.fullPhotoText
+        })
     }
 
     // MARK: - Safari
     
     @IBAction func openInBrowser(_ sender: UIButton) {
-        if let urlString = self.photo?.fullInfo?.urls?.contentUrls?.first?.text, let url = URL(string: urlString) {
+        if let url = self.variablePhoto.value.postUrl {
             let safariController = SFSafariViewController(url: url)
             self.present(safariController, animated: true, completion: nil)
         }
@@ -113,15 +90,4 @@ class PhotoInfoViewController: UIViewController, UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return self.imageView
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

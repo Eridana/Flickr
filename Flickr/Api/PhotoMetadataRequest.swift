@@ -12,9 +12,9 @@ class PhotoMetadataRequest {
     
     private static let url = "flickr.photos.getInfo"
     
-    static func metadata(for photo: Photo, completion: @escaping ((Photo?) -> Void)) {
+    static func metadata(for photoId: String?, completion: @escaping ((Photo?) -> Void)) {
         
-        guard let id = photo.id else {
+        guard let id = photoId else {
             completion(nil)
             return
         }
@@ -25,14 +25,6 @@ class PhotoMetadataRequest {
             if let data = data as? Data {
                 do {
                     let decoded = try JSONDecoder().decode(Photo.self, from: data)
-                    // it's probably possible to update class instead of these lines. https://stablekernel.com/understanding-extending-swift-4-codable/
-                    decoded.id = id
-                    decoded.ownerId = photo.ownerId
-                    decoded.title = photo.title
-                    decoded.dateUploadedString = photo.dateUploadedString
-                    decoded.smallUrlString = photo.smallUrlString
-                    decoded.mediumUrlString = photo.mediumUrlString
-                    decoded.largeUrlString = photo.largeUrlString
                     completion(decoded)
                 } catch {
                     print(error)

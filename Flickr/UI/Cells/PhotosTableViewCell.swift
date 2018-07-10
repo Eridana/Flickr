@@ -9,7 +9,7 @@
 import UIKit
 
 protocol PhotosTableViewCellDelegate {
-    func didSelectPhoto(_ photo: Photo)
+    func didSelectPhoto(_ photo: PhotoViewModel)
 }
 
 class PhotosTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollectionViewDelegate {
@@ -17,7 +17,7 @@ class PhotosTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
     @IBOutlet weak var collectionView: UICollectionView!
     public var cellDelegate: PhotosTableViewCellDelegate?
     
-    private var data: [Photo]?
+    private var viewModel: PhotosPageViewModel?
     private var categoryName: String?
     
     override func awakeFromNib() {
@@ -28,9 +28,9 @@ class PhotosTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
         super.setSelected(selected, animated: animated)
     }
     
-    func setupWithData(_ data: [Photo], categoryName: String?) {
-        self.data = data
-        self.categoryName = categoryName
+    func setupWith(_ viewModel: PhotosPageViewModel) {
+        self.viewModel = viewModel
+        self.categoryName = viewModel.title
         self.collectionView.reloadData()
         self.collectionView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: false)
     }
@@ -38,7 +38,7 @@ class PhotosTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
     // MARK: - UICollectionViewDataSource, UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let photo = self.data?[indexPath.row] {
+        if let photo = self.viewModel?.photoAt(index: indexPath.row) {
             if let delegate = cellDelegate {
                 delegate.didSelectPhoto(photo)
             }
@@ -53,13 +53,13 @@ class PhotosTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if let photo = self.data?[indexPath.row] {
+        if let photo = self.viewModel?.photoAt(index: indexPath.row) {
             (cell as? PhotoCollectionViewCell)?.setup(with: photo)
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.data?.count ?? 0
+        return self.viewModel?.itemsCount ?? 0
     }
 
 }
