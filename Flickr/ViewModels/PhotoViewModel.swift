@@ -9,20 +9,21 @@
 import UIKit
 import Foundation
 import SDWebImage
+import RxSwift
 
 class PhotoViewModel {
 
-    var urlS: URL?
-    var urlM: URL?
-    var urlL: URL?
+    var urlS: Variable<URL?>?
+    var urlM: Variable<URL?>?
+    var urlL: Variable<URL?>?
     
     var id: String?
     var ownerId: String?
     var ownerName: String?
     var date: Date?
     var dateFormatted: String?
-    var title: String?
-    var photoDescription: String?
+    var title: Variable<String?>?
+    var photoDescription: Variable<String?>?
     var postUrl: URL?
     
     var fullPhotoText: NSAttributedString? {
@@ -30,13 +31,17 @@ class PhotoViewModel {
             var fullText = ""
             if let ownerName = self.ownerName { fullText.append(ownerName + "<p/>") }
             if let dateString = self.dateFormatted { fullText.append(String(format: "on %@ <p/>", dateString)) }
-            if let title = self.title { fullText.append(title + "<p/>") }
-            if let description = self.photoDescription { fullText.append(description) }
+            if let title = self.title?.value { fullText.append(title + "<p/>") }
+            if let description = self.photoDescription?.value { fullText.append(description) }
             return fullText.attributedHTMLString()
         }
     }
 
     var dateFormatter = DateFormatter()
+    
+    init() {
+        
+    }
     
     init(photo: Photo) {
         
@@ -46,15 +51,15 @@ class PhotoViewModel {
             self.postUrl = url
         }
         
-        self.urlS = photo.urlSmall
-        self.urlM = photo.urlMedium
-        self.urlL = photo.urlLarge
+        self.urlS = Variable<URL?>(photo.urlSmall)
+        self.urlM = Variable<URL?>(photo.urlMedium)
+        self.urlL = Variable<URL?>(photo.urlLarge)
         
         self.ownerId = photo.ownerId
         self.ownerName = photo.fullInfo?.owner?.username
         self.date = photo.dateUploaded
-        self.title = photo.fullInfo?.title?.text
-        self.photoDescription = photo.fullInfo?.description?.text
+        self.title = Variable<String?>(photo.fullInfo?.title?.text)
+        self.photoDescription = Variable<String?>(photo.fullInfo?.description?.text)
         
         self.dateFormatter.dateFormat = "dd.MM.yyyy, HH:mm:ss"
         
@@ -78,11 +83,11 @@ class PhotoViewModel {
         }
         
         if let description = photo.fullInfo?.description?.text {
-            self.photoDescription = description
+            self.photoDescription = Variable<String?>(description)
         }
         
         if let title = photo.fullInfo?.title?.text {
-            self.title = title
+            self.title = Variable<String?>(title)
         }
     }
 }

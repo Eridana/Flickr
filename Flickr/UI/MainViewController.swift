@@ -15,11 +15,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     private var dataIsLoading = false
     private let refreshControl = UIRefreshControl()
 
-    private var viewModel: PhotosPagesListViewModel = PhotosPagesListViewModel() {
-        didSet {
-            self.tableView.reloadData()
-        }
-    }
+    private lazy var viewModel: PhotosPagesListViewModel = PhotosPagesListViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()

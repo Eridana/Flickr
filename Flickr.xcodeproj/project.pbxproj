@@ -33,6 +33,8 @@
 		7EFABCD120F3A75E00FDE120 /* PhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EFABCD020F3A75E00FDE120 /* PhotoViewModel.swift */; };
 		7EFABCD420F3B56800FDE120 /* String+NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EFABCD320F3B56800FDE120 /* String+NSAttributedString.swift */; };
 		7EFABCD720F3B7AD00FDE120 /* PhotosPagesListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EFABCD620F3B7AD00FDE120 /* PhotosPagesListViewModel.swift */; };
+		7EFABCDA20F4D03E00FDE120 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EFABCD820F4C64D00FDE120 /* RxSwift.framework */; };
+		7EFABCDB20F4D03E00FDE120 /* RxSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7EFABCD820F4C64D00FDE120 /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +54,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				7EFABCDB20F4D03E00FDE120 /* RxSwift.framework in Embed Frameworks */,
 				7EAEF9E720D8F44000337C9D /* MBProgressHUD.framework in Embed Frameworks */,
 				7EAEF9E920D8F44000337C9D /* Alamofire.framework in Embed Frameworks */,
 				7EAEF9E520D8F44000337C9D /* SDWebImage.framework in Embed Frameworks */,
@@ -89,6 +92,7 @@
 		7EFABCD020F3A75E00FDE120 /* PhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewModel.swift; sourceTree = "<group>"; };
 		7EFABCD320F3B56800FDE120 /* String+NSAttributedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+NSAttributedString.swift"; sourceTree = "<group>"; };
 		7EFABCD620F3B7AD00FDE120 /* PhotosPagesListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosPagesListViewModel.swift; sourceTree = "<group>"; };
+		7EFABCD820F4C64D00FDE120 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7EFABCDA20F4D03E00FDE120 /* RxSwift.framework in Frameworks */,
 				7EAEF9E620D8F44000337C9D /* MBProgressHUD.framework in Frameworks */,
 				7EAEF9E820D8F44000337C9D /* Alamofire.framework in Frameworks */,
 				7EAEF9E420D8F44000337C9D /* SDWebImage.framework in Frameworks */,
@@ -124,6 +129,7 @@
 		7EAEF9A920D8F0FA00337C9D = {
 			isa = PBXGroup;
 			children = (
+				7EFABCD820F4C64D00FDE120 /* RxSwift.framework */,
 				7EAEF9E320D8F43F00337C9D /* Alamofire.framework */,
 				7EAEF9E220D8F43F00337C9D /* MBProgressHUD.framework */,
 				7EAEF9E120D8F43F00337C9D /* SDWebImage.framework */,
